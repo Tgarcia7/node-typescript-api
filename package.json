@@ -1,7 +1,7 @@
 {
   "name": "node-typescrypt",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple ToDo API implemented with Node.js, Express and TypeScript. The data does not persist.",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "typescript",
     "express"
   ],
-  "author": "",
+  "author": "Tey García",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -30,5 +30,13 @@
     "@typescript-eslint/parser": "^5.59.7",
     "eslint": "^8.41.0",
     "nodemon": "^2.0.22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tgarcia7/node-typescrypt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tgarcia7/node-typescrypt/issues"
+  },
+  "homepage": "https://github.com/Tgarcia7/node-typescrypt#readme"
 }
