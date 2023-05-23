@@ -4,7 +4,6 @@ import { getRandomInt } from '../utilities/utils.js'
 import { TodoRepository } from '../repositories/todo.js'
 
 export class TodoController {
-
   constructor(private readonly todoRepository: TodoRepository) {}
 
   public createTodo: RequestHandler = (req, res) => {
