@@ -1,6 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express'
 
-export function loadErrorHandlers(app: Application) {
+export function loadErrorHandlers(app: Application): void {
   // catch not found routes
   app.use((req: Request, res: Response) => {
     res.status(404).send({ message: 'not found' })
@@ -13,7 +13,7 @@ export function loadErrorHandlers(app: Application) {
   })
 
   // catch unhandled exceptions
-  function handleFatalError (err: Error) {
+  function handleFatalError (err: Error): void {
     console.error('[fatal error]')
     console.error(err)
     process.exit(1)

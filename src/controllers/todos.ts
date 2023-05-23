@@ -1,39 +1,52 @@
 import { RequestHandler } from 'express'
 import { Todo } from '../models/todo.js'
 import { getRandomInt } from '../utilities/utils.js'
+import { TodoRepository } from '../repositories/todo.js'
 
-const TODOS: Todo[] = []
+export class TodoController {
 
-export const createTodo: RequestHandler = (req, res) => {
-  const text = (req.body as { text: string }).text
-  const task = new Todo(getRandomInt().toString(), text)
+  constructor(private readonly todoRepository: TodoRepository) {}
 
-  TODOS.push(task)
+  public createTodo: RequestHandler = (req, res) => {
+    const text = (req.body as { text: string }).text
+    const completed = (req.body as { completed: boolean }).completed
+    const todo = new Todo(getRandomInt().toString(), text, completed)
 
-  res.status(201).json({ message: 'task created', task: task })
-}
+    this.todoRepository.addTodo(todo)
 
-export const getTodo: RequestHandler = (req, res) => {
-  res.json({ todos: TODOS })
-}
+    res.status(201).json({ message: 'todo created', todo })
+  }
 
-export const updateTodo: RequestHandler<{ id: string }> = (req, res) => {
-  const id = req.params.id
-  const text = (req.body as { text: string }).text
-  
-  const idx = TODOS.findIndex(todo => todo.id === id)
-  if (idx < 0) return res.status(404).send({ message: 'task not found' })
-  TODOS[idx] = new Todo(TODOS[idx].id, text)
+  public getTodo: RequestHandler = (req, res) => {
+    const id: string = req.params.id
+    const todo: Todo | undefined = this.todoRepository.getTodo(id)
 
-  res.json({ message: 'task updated', todo: TODOS[idx] })
-}
+    if (!todo) return res.status(404).send({ message: 'todo not found' })
+    res.json({ todo })
+  }
 
-export const deleteTodo: RequestHandler<{ id: string }> = (req, res) => {
-  const id = req.params.id
+  public getTodos: RequestHandler = (req, res) => {
+    res.json({ todos: this.todoRepository.getTodos() })
+  }
 
-  const idx = TODOS.findIndex(todo => todo.id === id)
-  if (idx < 0) return res.status(404).send({ message: 'task not found' })
-  TODOS.splice(idx, 1)
+  public updateTodo: RequestHandler<{ id: string }> = (req, res) => {
+    const id: string = req.params.id
+    const text = (req.body as { text: string }).text
+    const completed = (req.body as { completed: boolean }).completed
+    const todo = new Todo(id, text, completed)
+    
+    const updated: boolean = this.todoRepository.updateTodo(id, todo)
+    if (!updated) return res.status(404).send({ message: 'todo not found' })
 
-  res.json({ message: 'task deleted' })
+    res.json({ message: 'todo updated', todo: this.todoRepository.getTodo(id) })
+  }
+
+  public deleteTodo: RequestHandler<{ id: string }> = (req, res) => {
+    const id: string = req.params.id
+
+    const updated: boolean = this.todoRepository.deleteTodo(id)
+    if (!updated) return res.status(404).send({ message: 'todo not found' })
+
+    res.json({ message: 'todo deleted' })
+  }
 }
