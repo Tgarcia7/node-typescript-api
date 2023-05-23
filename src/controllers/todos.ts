@@ -1,11 +1,12 @@
 import { RequestHandler } from 'express'
 import { Todo } from '../models/todo.js'
+import { getRandomInt } from '../utilities/utils.js'
 
 const TODOS: Todo[] = []
 
 export const createTodo: RequestHandler = (req, res) => {
   const text = (req.body as { text: string }).text
-  const task = new Todo(Math.random().toString(), text) // TODO: generate an integer number
+  const task = new Todo(getRandomInt().toString(), text)
 
   TODOS.push(task)
 
