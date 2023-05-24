@@ -1,7 +1,7 @@
 {
-  "name": "node-typescrypt",
+  "name": "node-typescript-api",
   "version": "1.0.0",
-  "description": "Simple ToDo API implemented with Node.js, Express and TypeScript. The data does not persist.",
+  "description": "Simple ToDo API implemented with Node.js, Express and TypeScript.",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -33,10 +33,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tgarcia7/node-typescrypt.git"
+    "url": "git+https://github.com/Tgarcia7/node-typescript.git"
   },
   "bugs": {
-    "url": "https://github.com/Tgarcia7/node-typescrypt/issues"
+    "url": "https://github.com/Tgarcia7/node-typescript/issues"
   },
-  "homepage": "https://github.com/Tgarcia7/node-typescrypt#readme"
+  "homepage": "https://github.com/Tgarcia7/node-typescript#readme"
 }
