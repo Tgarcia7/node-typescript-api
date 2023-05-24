@@ -15,21 +15,25 @@ export class TodoRepository {
     return this.todos
   }
 
-  public getTodo(id: string): Todo | undefined {
-    return this.todos.find(todo => todo.id === id)
+  public getTodo(id: string): Todo | null {
+    return this.todos.find(todo => todo.getId === id) || null
   }
 
   public deleteTodo(id: string): boolean {
-    const idx = this.todos.findIndex(todo => todo.id === id)
+    const idx = this.todos.findIndex(todo => todo.getId === id)
     if (idx < 0) return false
     this.todos.splice(idx, 1)
     return true
   }
 
-  public updateTodo(id: string, task: Todo): boolean {
-    const idx = this.todos.findIndex(todo => todo.id === id)
-    if (idx < 0) return false
+  public updateTodo(id: string, task: Todo): Todo | null {
+    const idx = this.todos.findIndex(todo => todo.getId === id)
+    if (idx < 0) return null
     this.todos[idx] = task
-    return true
+    return this.todos[idx]
+  }
+
+  public getTotal(): number {
+    return this.todos.length || 0
   }
 }

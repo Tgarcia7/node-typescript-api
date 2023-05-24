@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { TodoController } from '../controllers/todos.js'
+import { TodoController } from '../controllers/todo.js'
 import { TodoRepository } from '../repositories/todo.js'
 
 const todoRepository = new TodoRepository()
