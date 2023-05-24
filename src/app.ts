@@ -12,4 +12,3 @@ app.use('/todos', todoRoutes)
 loadErrorHandlers(app)
 
 export default app
-
